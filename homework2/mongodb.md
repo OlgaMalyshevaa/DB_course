@@ -1,6 +1,6 @@
 # MongoDB
 
-## **Используемый датасет:** [Mall_Customers](https://www.kaggle.com/datasets/shwetabh123/mall-customers?resource=download)
+Используемый датасет: [Mall_Customers](https://www.kaggle.com/datasets/shwetabh123/mall-customers?resource=download)\
 Данные посетителей магазина: id, пол, возраст, доход, рейтинг трат\
 Работа выполнена в MongoDB Compass
 ## **Запросы на выборку и обновление данных**
