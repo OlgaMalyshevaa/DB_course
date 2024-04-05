@@ -177,11 +177,75 @@ db.customers.find({CustomerID: {$lte: 4}}, {'Spending Score (1-100)': 1})
 ```
 
 **3.3 Метод updateMany():**
-```
 
+До выполнения запроса:
+```js
+db.customers.find({CustomerID: 16})
+```
+```js
+{
+  _id: ObjectId('660fda26e6f10aab4d9d02ac'),
+  CustomerID: 16,
+  Genre: 'Male',
+  Age: 22,
+  'Annual Income (k$)': 20,
+  'Spending Score (1-100)': 79
+}
+```
+Выполнение запроса:
+```js
+db.customers.replaceOne(
+{CustomerID: 16},
+{CustomerID: 204, Genre: "Female", Age: 33, 'Annual Income (k$)': 97, 'Spending Score (1-100)': 86}
+)
+```
+```js
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+```
+После выполнения запроса:
+```js
+db.customers.find({CustomerID: 204})
+```
+```js
+{
+  _id: ObjectId('660fda26e6f10aab4d9d02ac'),
+  CustomerID: 204,
+  Genre: 'Female',
+  Age: 33,
+  'Annual Income (k$)': 97,
+  'Spending Score (1-100)': 86
+}
 ```
 
 ### **4. Delete**
+**4.1 Метод deleteOne():**
+```js
+db.customers.deleteOne({ _id: ObjectId('660fda26e6f10aab4d9d0352')})
+```
+```js
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+```
+**4.2 Метод deleteMany():**
+```js
+db.customers.deleteMany({'Spending Score (1-100)': 20})
+```
+```js
+{
+  acknowledged: true,
+  deletedCount: 2
+}
+```
+### **5. Добавление индекса и сравнение производительности**
+**5.1 Без индекса:**
 
 
 
