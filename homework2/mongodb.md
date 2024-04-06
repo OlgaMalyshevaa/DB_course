@@ -234,7 +234,7 @@ db.customers.deleteOne({ _id: ObjectId('660fda26e6f10aab4d9d0352')})
   deletedCount: 1
 }
 ```
-**4.2 Метод deleteMany():**
+**4.2 Метод `.deleteMany()`:**
 ```js
 db.customers.deleteMany({'Spending Score (1-100)': 20})
 ```
@@ -245,7 +245,74 @@ db.customers.deleteMany({'Spending Score (1-100)': 20})
 }
 ```
 ### **5. Добавление индекса и сравнение производительности**
-**5.1 Без индекса:**
+**5.1 Производительность запросов без индекса:**
+
+Для получения статистики выполнения запроса использовала метод `.explain("executionStats")`\
+Время выполнения запроса можно найти в "executionStats". В данном случае, время выполнения запроса составляет 5 миллисекунд.
+```js
+db.customers.find({Age: {$gte: 18}}).explain("executionStats")
+```
+```js
+executionStats: {
+    executionSuccess: true,
+    nReturned: 88,
+    executionTimeMillis: 5,
+    totalKeysExamined: 0,
+    totalDocsExamined: 199,
+    executionStages: {
+      stage: 'COLLSCAN',
+      filter: {
+        '$and': [
+          {
+            Genre: {
+              '$eq': 'Female'
+            }
+          },
+          {
+            'Spending Score (1-100)': {
+              '$gte': 20
+            }
+          }
+        ]
+      }
+```
+**5.2 Добавление индекса:**
+```js
+db.customers.createIndex({Age:1}) 
+Age_1
+```
+**5.3 Производительность запросов c индексом:**
+```js
+db.customers.find({ $and: [{Age: {$gte: 24}}, {Genre: "Female"}, {'Spending Score (1-100)': {$gte: 20}}] }).explain("executionStats")
+```
+```js
+executionStats: {
+    executionSuccess: true,
+    nReturned: 82,
+    executionTimeMillis: 17,
+    totalKeysExamined: 169,
+    totalDocsExamined: 169,
+    executionStages: {
+      stage: 'FETCH',
+      filter: {
+        '$and': [
+          {
+            Genre: {
+              '$eq': 'Female'
+            }
+          },
+          {
+            'Spending Score (1-100)': {
+              '$gte': 20
+            }
+          }
+        ]
+      }
+```
+ После добавления индекса время выполнения запроса составило 17 миллисекунд.
+ Это может быть связано с тем, что датасет небольшой, в этом случае индексы могут быть менее эффективными, так как индекс сам по себе занимает место и требует времени для поддержания в актуальном состоянии.
+
+ 
 
 
 
