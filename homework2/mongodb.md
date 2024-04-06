@@ -5,7 +5,7 @@
 Работа выполнена в MongoDB Compass
 ## **Запросы на выборку и обновление данных**
 ### **1. Create**
-**1.1 Добавление одного элемента (метод insertOne()):**
+**1.1 Добавление одного элемента (метод `.insertOne()`):**
 ```js
 db.customers.insertOne({ "CustomerID": 201,
 "Genre": "Female",
@@ -20,7 +20,7 @@ db.customers.insertOne({ "CustomerID": 201,
     insertedId: ObjectId('660fdd8272aec7d7ee53a43b')
 }
 ```
-**1.2 Множественное добавление (метод insertMany()):**
+**1.2 Множественное добавление (метод `.insertMany()`):**
 ```js
 db.customers.insertMany([ 
 { "CustomerID": 202, "Genre": "Female", "Age": 32, "Annual Income (k$)":  137, "Spending Score (1-100)": 33},
@@ -38,7 +38,7 @@ db.customers.insertMany([
 }
 ```
 ### **2. Read**
-**2.1 Метод findOne():**
+**2.1 Метод `.findOne()`:**
 ```js
 db.customers.findOne({ _id: ObjectId('660fda26e6f10aab4d9d0351')}, {CustomerID: 1})
 ```
@@ -49,7 +49,7 @@ db.customers.findOne({ _id: ObjectId('660fda26e6f10aab4d9d0351')}, {CustomerID: 
   CustomerID: 181
 }
 ```
-**2.2 Метод find():**
+**2.2 Метод `.find()`:**
 ```js
 db.customers.find({ $and: [{Age: {$lte: 24}}, {Genre: "Female"}] }, {CustomerID: 1, Age: 1}).sort({Age: 1}).limit(4)
 ```
@@ -77,7 +77,7 @@ db.customers.find({ $and: [{Age: {$lte: 24}}, {Genre: "Female"}] }, {CustomerID:
 }
 ```
 ### **3. Update**
-**3.1 Метод updateOne():**
+**3.1 Метод `.updateOne()`:**
 
 До вызова метода: 
 ```js
@@ -116,7 +116,7 @@ db.customers.findOne({ _id: ObjectId('660fda26e6f10aab4d9d0351') }, {'Spending S
 }
 ```
 
-**3.2 Метод updateMany():**
+**3.2 Метод `.updateMany()`:**
 
 До вызова метода:
 ```js
@@ -176,7 +176,7 @@ db.customers.find({CustomerID: {$lte: 4}}, {'Spending Score (1-100)': 1})
 }
 ```
 
-**3.3 Метод updateMany():**
+**3.3 Метод `.updateMany()`:**
 
 До выполнения запроса:
 ```js
@@ -224,7 +224,7 @@ db.customers.find({CustomerID: 204})
 ```
 
 ### **4. Delete**
-**4.1 Метод deleteOne():**
+**4.1 Метод `.deleteOne()`:**
 ```js
 db.customers.deleteOne({ _id: ObjectId('660fda26e6f10aab4d9d0352')})
 ```
